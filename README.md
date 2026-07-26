@@ -1,2 +1,7 @@
-# pediatric-hospital-quality-analysis
-Analysis of U.S. hospital quality using CMS data, Python, Pandas, SQL, and data visualization in a browser-based workflow.
+# U.S. Hospital Quality Analysis
+
+An end-to-end analysis of CMS hospital quality data using Python, SQL,
+SQLite, and data visualization. The project compares hospital-level
+quality ratings across U.S. states, hospital types, and ownership groups.
+
+Status: In progress
