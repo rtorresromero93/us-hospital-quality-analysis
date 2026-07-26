@@ -1,2 +1,2 @@
 # pediatric-hospital-quality-analysis
-Exploratory analysis of U.S. pediatric hospital quality and patient experience data using Python, SQL, PostgreSQL and data visualization. 
+Analysis of U.S. hospital quality using CMS data, Python, Pandas, SQL, and data visualization in a browser-based workflow.
