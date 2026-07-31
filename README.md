@@ -2,25 +2,25 @@
 
 ## Project Overview
 
-This project analyzes publicly available hospital quality data from the Centers for Medicare & Medicaid Services (CMS) to examine how overall hospital quality varies across the United States. Using Python, SQL, and data visualization techniques, the project retrieves live data through the CMS Provider Data Catalog API, performs data cleaning and validation, and compares hospital quality ratings across states to identify meaningful patterns.
+This project analyzes hospital quality across the United States using publicly available data from the Centers for Medicare & Medicaid Services (CMS). The analysis retrieves the latest hospital information directly from the CMS Provider Data Catalog API, cleans and validates the data using Python and Pandas, performs exploratory analyses, validates key results with SQL using SQLite, and visualizes patterns in hospital quality across states, hospital types, and ownership categories.
 
 ---
 
 ## Business Question
 
-**How does CMS overall hospital quality vary across U.S. hospitals and states?**
+**How does CMS overall hospital quality vary across U.S. hospitals, states, hospital types, and ownership categories?**
 
 ---
 
 ## Data Source
 
 **Centers for Medicare & Medicaid Services (CMS)**  
-Provider Data Catalog – Hospital General Information  
-Dataset ID: **xubh-q36u**
+Provider Data Catalog – Hospital General Information
 
-- Access Method: CMS Provider Data Catalog API
-- Data retrieved programmatically using Python
-- Source updates periodically as CMS releases new information
+- **Dataset ID:** `xubh-q36u`
+- Accessed through the CMS Provider Data Catalog API
+- Data retrieved programmatically during notebook execution
+- Analysis date recorded within the notebook
 
 ---
 
@@ -30,85 +30,102 @@ Dataset ID: **xubh-q36u**
 - Pandas
 - Requests
 - CMS Provider Data Catalog API
-- SQLite / SQL
+- SQLite
+- SQL
 - Matplotlib
 - Jupyter Notebook
 - GitHub Codespaces
-- Git / GitHub
+- Git & GitHub
 
 ---
 
-## Data Cleaning
+## Analysis Performed
 
-The dataset was cleaned and validated before analysis by:
+The notebook includes analyses of:
 
-- Removing duplicate hospital records.
-- Converting Overall Hospital Rating to a numeric variable where appropriate.
-- Separating rated hospitals from hospitals with missing ratings.
-- Excluding missing ratings from average-rating calculations.
-- Verifying unique hospital identifiers.
-- Validating row counts and summary statistics.
-- Cross-checking Python results with equivalent SQL queries.
+- National CMS hospital quality ratings
+- State-level hospital quality statistics
+- Average hospital ratings by state
+- Hospital quality by hospital type
+- Hospital quality by ownership
+- Comparison of individual hospitals to their state averages
+- SQL validation of Python analyses
+- Cross-validation between Python and SQLite
+
+---
+
+## Data Cleaning & Validation
+
+The dataset was prepared by:
+
+- Retrieving the latest CMS data directly through the API
+- Converting Overall Hospital Rating to numeric values
+- Handling missing hospital ratings
+- Checking duplicate hospital records
+- Validating unique facility identifiers
+- Confirming appropriate data types
+- Excluding missing ratings from statistical analyses
+- Applying a minimum threshold of **20 rated hospitals** for state ranking comparisons
+- Verifying results using equivalent SQL queries in SQLite
 
 ---
 
 ## Key Findings
 
-1. CMS Overall Hospital Ratings vary considerably across U.S. hospitals.
-2. Average hospital quality differs by state, with some states consistently reporting higher average ratings than others.
-3. Excluding hospitals without CMS ratings provides more accurate state-level comparisons.
+- Colorado had the highest average CMS hospital rating (**3.41**) among states with at least 20 rated hospitals.
+- Maryland had the lowest average hospital rating (**2.83**) under the same inclusion criteria.
+- Veterans Administration acute-care hospitals achieved substantially higher average ratings than Critical Access and other Acute Care hospitals.
+- Most U.S. hospitals clustered below an overall CMS rating of **3.0**, indicating generally moderate performance.
+- SQL and Python produced matching results after applying identical filtering and aggregation logic.
 
 ---
 
 ## Visualizations
 
-The complete visualizations and analysis are available in:
+The notebook contains visualizations including:
 
-```
-notebooks/01_hospital_quality_analysis.ipynb
-```
-
-Visualizations include:
-
-- Overall Hospital Rating distribution
-- Average hospital rating by state
-- Rated hospitals by state
+- Distribution of CMS Overall Hospital Ratings
+- Average Hospital Rating by State
+- Hospital Ratings by Hospital Type
+- Hospital Ratings by Ownership
+- Additional summary tables supporting the analysis
 
 ---
 
-## SQL Analysis
+## SQL Validation
 
-SQL queries used for validation and comparison are located in:
+SQLite was used to independently validate the Python analysis.
 
-```
-sql/analysis_queries.sql
-```
+Validation included:
 
-These queries reproduce the primary Python analyses to verify:
-
+- National hospital rating distribution
+- Average hospital ratings by state
 - Rated hospital counts
-- State average ratings
-- Missing rating exclusions
-- Consistent filtering logic
+- Cross-check of SQL and Python outputs
+- Verification that missing ratings were excluded consistently
+- Confirmation that the same minimum sample threshold was applied in both workflows
 
 ---
 
 ## Limitations
 
-- CMS updates the dataset periodically, so results may change over time.
-- Some hospitals do not have an Overall Hospital Rating and are excluded from rating analyses.
-- The analysis is descriptive and does not establish causal relationships.
-- Differences in hospital size, patient population, and case complexity are not adjusted for in this project.
+- CMS data are updated periodically, so results may change over time.
+- Hospital ratings are unavailable for some facilities and were excluded from rating analyses.
+- State averages represent facility-level averages rather than official statewide quality scores.
+- Differences may reflect hospital mix, ownership structure, and other factors not modeled in this project.
+- States with fewer than 20 rated hospitals were excluded from state ranking comparisons.
 
 ---
 
 ## How to Reproduce
 
-1. Open this repository in GitHub Codespaces.
-2. Open the Jupyter Notebook.
-3. Run each notebook cell from top to bottom.
-4. The notebook automatically retrieves the latest CMS data through the API.
-5. Run the SQL queries in the `sql` folder to validate the Python results.
+1. Clone this repository.
+2. Open the project in GitHub Codespaces.
+3. Install the required Python packages.
+4. Open `notebooks/01_hospital_quality_analysis.ipynb`.
+5. Run all notebook cells from top to bottom.
+6. The notebook automatically downloads the current CMS dataset through the API.
+7. Execute the SQL queries to validate the Python results.
 
 ---
 
@@ -123,12 +140,6 @@ US-Hospital-Quality-Analysis/
 ├── sql/
 │   └── analysis_queries.sql
 │
-├── data/
-│   └── (optional cached datasets)
-│
-├── images/
-│   └── (charts and figures)
-│
 ├── requirements.txt
 ├── README.md
 └── LICENSE
@@ -138,16 +149,23 @@ US-Hospital-Quality-Analysis/
 
 ## Future Improvements
 
-- Integrate HCAHPS patient experience data.
-- Incorporate selected outcome and timely/effective care measures.
+- Incorporate HCAHPS patient experience measures.
+- Analyze CMS outcome and timely/effective care metrics.
 - Develop an interactive dashboard using Plotly or Tableau.
-- Apply statistical modeling to identify predictors of hospital quality.
-- Perform longitudinal analyses using multiple CMS reporting periods.
+- Build predictive models to identify factors associated with higher hospital quality ratings.
+- Expand the analysis to evaluate trends across multiple CMS reporting periods.
 
 ---
 
 ## Author
 
-**Richard Torres Romero**  
-M.S. Data Analytics (Data Science) Student, Western Governors University  
-B.S. Computer Science, University of the People
+**Richard Torres Romero**
+
+- M.S. Data Analytics (Data Science) Student, Western Governors University
+- B.S. Computer Science, University of the People
+
+---
+
+## License
+
+This project is intended for educational and portfolio purposes using publicly available CMS data.
